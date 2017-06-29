@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home.inicio');
-});
+
+
+//usa login y forgot ... registro en otro lado 
+Auth::routes();
+
+
+
+/*
+*
+*
+*   HOME CONTROLLER ... PAGINA REGISTRO ... 
+*
+*/
+Route::get('/', 'HomeController@index')->name('inicio');
+Route::get('/registro', 'HomeController@registro')->name('registro');
