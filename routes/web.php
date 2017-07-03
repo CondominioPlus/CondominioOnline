@@ -22,7 +22,10 @@ Auth::routes();
 *
 *
 *   HOME CONTROLLER ... PAGINA REGISTRO ... 
-*
+*   
+*   USA LA FUNCION INICIO STORE DE USERCONTROLLER 
+*   
 */
 Route::get('/', 'HomeController@index')->name('inicio');
 Route::get('/registro', 'HomeController@registro')->name('registro');
+Route::post('/registro', 'UserController@inicioStore')->name('userStore');

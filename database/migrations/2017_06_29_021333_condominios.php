@@ -14,6 +14,13 @@ class Condominios extends Migration
     public function up()
     {
         //
+        Schema::create('condominios', function(Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('nombre');
+            $table->text('direccion');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -24,5 +31,6 @@ class Condominios extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('condominios');
     }
 }

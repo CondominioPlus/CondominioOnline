@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Users\Inicio;
+use App\User;
+use App\Rol;
 
 class UserController extends Controller
 {
@@ -35,6 +38,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function inicioStore(Inicio $request){
+        $user = new User;
+        $user->nombre = $request->nombre;
+        $user->apellidos = $request->apellidos;
+        $user->email = $request->email;
+        $user->telefono = $request->telefono;
+        $user->password = bcrypt($request->password);
+        $rol = Rol::find(1);
+        $user->rol()->associate($rol);
+        $user->save();
+        dd($user);
     }
 
     /**
@@ -81,4 +97,7 @@ class UserController extends Controller
     {
         //
     }
+
+
+    
 }

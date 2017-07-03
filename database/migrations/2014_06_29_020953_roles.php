@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Rol extends Migration
+class Roles extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class Rol extends Migration
         //
          Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name');
+            $table->text('nombre');
             $table->timestamps();
         });
     }
