@@ -28,6 +28,7 @@ class Inicio extends FormRequest
             'nombre.required' => 'Por favor ingresa un nombre.',
             'apellidos.required' => 'Por favor ingresa  apellidos.',
             'email.required' => 'Por favor ingresa un email.',
+            'email.unique' => 'Ese correo ya esta asignado a una cuenta.',
             'telefono.required' => 'Por favor ingresa un telefono.',
             'password.required' => 'Por favor ingresa una contraseña.',
 

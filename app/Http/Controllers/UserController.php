@@ -50,7 +50,9 @@ class UserController extends Controller
         $rol = Rol::find(1);
         $user->rol()->associate($rol);
         $user->save();
-        dd($user);
+
+        return redirect()->route('inicioCondo');
+        //dd($user);
     }
 
     /**

@@ -18,6 +18,7 @@ class Condominios extends Migration
             $table->bigIncrements('id');
             $table->text('nombre');
             $table->text('direccion');
+            $table->text('url_img');
             $table->timestamps();
             $table->softDeletes();
         });

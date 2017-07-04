@@ -29,3 +29,5 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('inicio');
 Route::get('/registro', 'HomeController@registro')->name('registro');
 Route::post('/registro', 'UserController@inicioStore')->name('userStore');
+Route::get('/registro/condominio', 'HomeController@condominio')->name('inicioCondo');
+Route::post('/registro/condominio', 'CondominioController@inicioStore')->name('condoStore');

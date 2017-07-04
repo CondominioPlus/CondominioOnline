@@ -35,9 +35,9 @@
             </div>
             <br>
             <div class="ui big breadcrumb">
-                <div class="active section">Administrador</div>
+                <div class="section">Administrador</div>
                 <i class="right chevron icon divider"></i>
-                <div class="section">Condominio</div>
+                <div class=" active section">Condominio</div>
                 <i class="right chevron icon divider"></i>
                 <div class="section">Unidades Privatrivas</div>
             </div>
@@ -62,7 +62,7 @@
                 
 
                 
-                <form class="ui form attached fluid " method="POST" action="{{route('userStore')}}">
+                <form class="ui form attached fluid " method="POST" action="{{route('condoStore')}}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="two fields">
                         @if($errors->has('nombre'))
@@ -71,60 +71,31 @@
                             <div class="field required">
                         @endif
                             <label>Nombre </label>
-                            <input value="{{old('nombre')}}" name="nombre" placeholder="Hugo Ricardo" type="text">
+                            <input value="{{old('nombre')}}" name="nombre" placeholder="Claustros del Marques" type="text">
                         </div>
-                        @if($errors->has('apellidos'))
+                        @if($errors->has('direccion'))
                             <div class="field required error">
                         @else
                             <div class="field required">
                         @endif
-                            <label>Apellidos</label>
-                            <input value="{{old('apellidos')}}" name="apellidos" placeholder="De la Rosa Coronado" type="text">
+                            <label>Dirección</label>
+                            <input value="{{old('direccion')}}" name="direccion" placeholder="Fray Luis de Leon 3000, Querétaro, Querétaro" type="text">
                         </div>
                     </div>
-                    <div class="two fields">
-                        @if($errors->has('email'))
-                            <div class="field required error">
-                        @else
-                            <div class="field required">
-                        @endif
-                            <label>Correo Electrónico </label>
-                            <input value="{{old('email')}}" name="email" placeholder="hugo.delarosa@justsign.mx" type="text">
-                        </div>
-                        @if($errors->has('telefono'))
-                            <div class="field required error">
-                        @else
-                            <div class="field required">
-                        @endif
-                            <label>Teléfono</label>
-                            <input value="{{old('telefono')}}" name="telefono" placeholder="4422228088" type="text">
-                        </div>
+                    
+                    @if($errors->has('logo'))
+                        <div class="field required error">
+                    @else
+                        <div class="field required">
+                    @endif
+                        <label>Logo </label>
+                        <input name="logo" placeholder="" type="file" accept="image/*">
                     </div>
-                    <div class="two fields">
-                        @if($errors->has('password'))
-                            <div class="field required error">
-                        @else
-                            <div class="field required">
-                        @endif
-                            <label>Contraseña </label>
-                            <input name="password" placeholder="" type="password">
-                        </div>
-                        @if($errors->has('password'))
-                            <div class="field required error">
-                        @else
-                            <div class="field required">
-                        @endif
-                            <label>Confirma Contraseña</label>
-                            <input name="password_confirmation" placeholder="" type="password">
-                        </div>
-                    </div>
+
+
                     <button  class="ui green button" >Continuar</button>
                 </form>
                 
-            </div>
-            <div class="ui bottom attached warning message">
-                <i class="icon help"></i>
-                ¿Ya estas registrado? <a href="{{route('login')}}">Ingresa aqui</a>
             </div>
             
         </div>
