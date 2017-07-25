@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
 use App\Http\Requests\Users\Inicio;
 use App\User;
 use App\Rol;
@@ -51,7 +54,9 @@ class UserController extends Controller
         $user->rol()->associate($rol);
         $user->save();
 
-        return redirect()->route('inicioCondo');
+        Auth::login($user);
+
+        return redirect()->route('condominio.index');
         //dd($user);
     }
 

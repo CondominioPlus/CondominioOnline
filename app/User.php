@@ -30,4 +30,16 @@ class User extends Authenticatable
     public function rol(){
         return $this->belongsTo('App\Rol');
     }
+
+    public function condominios(){
+        return $this->hasMany('App\Condominio');
+    }
+
+    public function isAdmin(){
+        return $this->rol->id === 1;
+    }
+    public function isCondo(){
+        return $this->rol->id === 2;
+    }
+
 }

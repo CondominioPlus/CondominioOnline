@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,5 +29,18 @@ class HomeController extends Controller
 
     public function condominio(){
         return view('home.rcondominio');
+    }
+    public function unidades(){
+        return view('home.runidades');
+    }
+
+    public function dashboard(){
+        if(Auth::user()->isAdmin())
+        return view('app.admin.dashboard');
+
+        if(Auth::user()->isCondo())
+        dd(Auth::user()->rol->nombre);
+
+        
     }
 }

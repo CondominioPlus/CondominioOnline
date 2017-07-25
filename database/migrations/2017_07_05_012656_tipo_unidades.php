@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Condominios extends Migration
+class TipoUnidades extends Migration
 {
     /**
      * Run the migrations.
@@ -14,22 +14,17 @@ class Condominios extends Migration
     public function up()
     {
         //
-        Schema::create('condominios', function(Blueprint $table) {
+        Schema::create('tipo_unidades', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('nombre');
-            $table->text('direccion');
-            $table->text('url_img')->nullable();
+            $table->text('descripcion')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedBigInteger('condominio_id');
 
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('user_id')
+            $table->foreign('condominio_id')
             ->references('id')
-            ->on('users');
-
-
-
+            ->on('condominios');
         });
     }
 
@@ -41,6 +36,6 @@ class Condominios extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('condominios');
+        Schema::dropIfExists('tipo_unidades');
     }
 }

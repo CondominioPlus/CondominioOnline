@@ -29,20 +29,19 @@
                 <h2 class="ui header">
                     <div class="content">
                         ¡ Gracias por registrate con nosotros !
-                        <div class="sub header">Empecemos con el proceso de registro.</div>
                     </div>
                 </h2>
             </div>
             <br>
-            <div class="ui big breadcrumb">
-                <div class="active section">Administrador</div>
-                <i class="right chevron icon divider"></i>
-                <div class="section">Condominio</div>
-                <i class="right chevron icon divider"></i>
-                <div class="section">Unidades Privatrivas</div>
-            </div>
         
             <div class="ui raised segment">
+            <h2 class="ui teal header">
+                <i class="settings icon"></i>
+                <div class="content">
+                    Configuración del Espacio
+                    <div class="sub header">Ingresa la información del usuario Administrador.</div>
+                </div>
+            </h2>
 
             @if ($errors->any())
 

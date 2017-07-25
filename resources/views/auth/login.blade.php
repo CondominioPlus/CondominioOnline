@@ -90,7 +90,8 @@
         Iniciar Sesión
       </div>
     </h2>
-    <form class="ui large form">
+    <form method="POST" class="ui large form" action="{{route('login')}}">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="ui stacked segment">
         <div class="field">
           <div class="ui left icon input">
@@ -104,7 +105,7 @@
             <input type="password" name="password" placeholder="Contraseña">
           </div>
         </div>
-        <div class="ui fluid large teal submit button">Enviar</div>
+        <button class="ui fluid large teal submit button">Enviar</button>
       </div>
 
       <div class="ui error message"></div>

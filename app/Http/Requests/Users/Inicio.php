@@ -22,8 +22,7 @@ class Inicio extends FormRequest
      * @return array
      */
 
-     public function messages()
-    {
+    public function messages(){
         return [
             'nombre.required' => 'Por favor ingresa un nombre.',
             'apellidos.required' => 'Por favor ingresa  apellidos.',
@@ -35,8 +34,7 @@ class Inicio extends FormRequest
 
         ];
     }
-    public function rules()
-    {
+    public function rules(){
         return [
             'nombre' => 'required|string',
             'apellidos' => 'required|string',
