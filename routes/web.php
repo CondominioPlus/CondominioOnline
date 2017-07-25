@@ -37,3 +37,4 @@ Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
 
 // RESOURCES 
 Route::resource('/condominio', 'CondominioController');
+Route::resource('/tipo_unidad', 'TUPController');

@@ -20,19 +20,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(Auth::user()) return redirect()->route('dashboard');
         return view('home.inicio');
     }
 
     public function registro(){
+        if(Auth::user()) return redirect()->route('dashboard');
         return view('home.registro');
     }
 
-    public function condominio(){
-        return view('home.rcondominio');
-    }
-    public function unidades(){
-        return view('home.runidades');
-    }
 
     public function dashboard(){
         if(Auth::user()->isAdmin())
