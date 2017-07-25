@@ -17,52 +17,34 @@
     <div class="row">
         <div class="column">
             @if(count($condominios) >0)
-                <table class="ui three column selectable blue table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Dirección</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($condominios as $condominio)   
-                            <tr>
-                                <td>{{ $condominio->nombre }}</td>
-                                <td>{{ $condominio->direccion }}</td>
-                                <td>
-                                    <div class="ui small buttons">
-                                        <a class="ui green button" href="{{ route('condominio.show', $condominio->id) }}">Info</a>
-                                        <a class="ui blue button" href="{{ route('condominio.edit', $condominio->id) }}">Editar</a>
+                <div class="ui special cards">
+                @foreach($condominios as $condominio)
+                    <div class="ui card">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <a href="{{route('condominio.edit',$condominio->id)}}" class="ui yellow inverted button">Editar</a>
                                         <form method="POST" action="{{ route('condominio.destroy', $condominio->id) }}" style="display: inline;">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
-                                            <button type="submit" class="ui red button">Borrar</button>
+                                            <button type="submit" class="ui red inverted button">Eliminar</button>
                                         </form>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    @if($condominios->count() >1)
-                        <tfoot>
-                            <tr><th colspan="3">
-                                <div class="ui right floated pagination menu">
-                                    <a href="$condominios->previousPageUrl()" class="icon item">
-                                        <i class="left chevron icon"></i>
-                                    </a>
-                                    @for($i=1; $i< $condominios->count(); $i++)
-                                        <a href="{{$condominios->url($i)}}" class="item">{{$i}}</a>
-                                    @endfor
-                                    <a href="{{$condominios->nextPageUrl()}}"  class="icon item">
-                                        <i class="right chevron icon"></i>
-                                    </a>
                                 </div>
-                                </th>
-                            </tr>
-                        </tfoot>
-                    @endif
-                </table>
+                            </div>
+                            <img src="{{url($condominio->url_img)}}">
+                        </div>
+                        <div class="content">
+                            <a href="{{ route('condominio.show', $condominio->id) }}" class="header">{{$condominio->nombre}}</a>
+                            <div class="meta">
+                            <span class="date">{{$condominio->direccion}}</span>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                </div>
+                
 
             @else
 
@@ -75,6 +57,28 @@
                     
                 </div>
 
+            @endif
+
+            @if($condominios->lastPage()>1)
+                <div class="ui right floated pagination menu">
+
+                    <a class="icon item" href="{{$condominios->previousPageUrl()}}">
+                        <i class="left chevron icon"></i>
+                    </a>
+
+                    @for($i=max($condominios->currentPage()-2,1); $i <= max(1,min($condominios->lastPage(),$condominios->currentPage()+2 )) ; $i++)
+                        @if($i == $condominios->currentPage())
+                            <a class="blue disabled item" href="{{$condominios->url($i)}}">{{$i}}</a>
+                        @else
+                            <a class="item" href="{{$condominios->url($i)}}">{{$i}}</a>
+                        @endif
+                    @endfor
+
+
+                    <a class="icon item"  href="{{$condominios->nextPageUrl()}}">
+                        <i class="right chevron icon"></i>
+                    </a>
+                </div>
             @endif
 
 

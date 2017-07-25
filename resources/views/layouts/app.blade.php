@@ -55,6 +55,10 @@
             $(this).closest('.message').transition('fade');
         }) ;
 
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+
     </script>
     
     

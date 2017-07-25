@@ -14,6 +14,6 @@ class UnidadPrivativa extends Model
     }
 
     public function tipo_unidad(){
-        return $this->belongsTo('App\TipoUnidadesPrivativas');
+        return $this->belongsTo('App\TipoUnidadesPrivativas','tipo_unidades_privativas_id');
     }
 }

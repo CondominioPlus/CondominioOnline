@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\Condominios\Store;
+use App\Http\Requests\Condominios\Update;
+
+
 Use App\Condominio;
 Use App\User;
 Use App\TipoUnidadesPrivativas;
@@ -20,32 +23,18 @@ class CondominioController extends Controller
         $this->middleware('auth');
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(){
         $condominios = Auth::user()->condominios()->paginate(10);
         //dd($data);
         return view('app.admin.condominio.index')->with('condominios', $condominios);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function create(){
         return view('app.admin.condominio.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Store $request){
         //obtiene los request 
         $unidades = $request->nombre_unidad;
@@ -55,7 +44,8 @@ class CondominioController extends Controller
         $condominio = new Condominio;
         $condominio->nombre = $request->nombre;
         $condominio->direccion = $request->direccion;
-        $condominio->url_img = $request->file('logo')->store('logos');
+        $imgpath=Storage::putFile('public/logos',$request->file('logo'));
+        $condominio->url_img = Storage::url($imgpath);
         $condominio->user_id = Auth::user()->id;
         $condominio->save();
         //Auth::user()->condominios()->associate($condominio);
@@ -70,7 +60,7 @@ class CondominioController extends Controller
                 $up = new UnidadPrivativa;
                 $up->numero = $i;
                 $up->rentado = 0;
-                $up->tipo_unidades_id = $aux->id;
+                $up->tipo_unidad()->associate($aux);
                 $up->condominio_id = $condominio->id;
                 $up->save();
                 
@@ -80,67 +70,46 @@ class CondominioController extends Controller
                         ->with('success', 'Condominio creado satisfactoriamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Condo  $condo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Condominio $condo){
-        $condo = Condominio::find($condo->id);
-
-        return view('condominio.show')->with('condo', $condo);
+ 
+    public function show($condo){
+        $condominio = Condominio::find($condo);
+        //dd($condominio->unidades);
+        if(Auth::user()->isAdmin())
+        return view('app.admin.condominio.show')->with('condominio', $condominio);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Condo  $condo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Condominio $condo){
-        $condo = Condominio::find($condo->id);
-
-        return view('condominio.edit')->with('condo', $condo);
+  
+    public function edit($condo){
+        $condominio = Condominio::find($condo);
+        if(Auth::user()->isAdmin())
+        return view('app.admin.condominio.edit')->with('condominio', $condominio);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Condo  $condo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCondo $request, Condo $condo){
-        $condo = Condominio::find($condo->id);
 
-        switch ($request->area) {
-            case 'name':
-                $condo->name = $request->name;
-                break;
+    public function update(Update $request, $condo){
+        $condominio = Condominio::find($condo);
+        //dd($condo);
 
-            case 'address':
-                $condo->address = $request->address;
-                break;
-                
-            default:
-                return redirect()->route('condos.index')
-                                ->with('error', 'Hubo un problema al actualizar el condominio, intente de nuevo');
-                break;
+        if($request->nombre!=''){
+            $condominio->nombre = $request->nombre;
         }
 
-        $condo->save();
+        if($request->direccion!=''){
+            $condominio->direccion = $request->direccion;
+        }
 
-        return redirect()->route('condos.index')
+        if($request->file('logo')!= null){
+            $imgpath=Storage::putFile('public/logos',$request->file('logo'));
+            $condominio->url_img = Storage::url($imgpath);
+        }
+
+        $condominio->save();
+
+        return redirect()->route('condominio.index')
                         ->with('success', 'Condominio actualizado satisfactoriamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Condo  $condo
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($condo){
 
         $condominio = Condominio::find($condo);

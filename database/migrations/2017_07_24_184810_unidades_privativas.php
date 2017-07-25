@@ -20,12 +20,12 @@ class UnidadesPrivativas extends Migration
             $table->boolean('rentado')->default(0);
             $table->integer('numero_cajones')->nullable();
             $table->text('notas')->nullable();
-            $table->unsignedBigInteger('tipo_unidades_id')->nullable();
+            $table->unsignedBigInteger('tipo_unidades_privativas_id')->nullable();
             $table->unsignedBigInteger('condominio_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('tipo_unidades_id')
+            $table->foreign('tipo_unidades_privativas_id')
             ->references('id')
             ->on('tipo_unidades');
 
