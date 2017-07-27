@@ -8,14 +8,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name', 'Mi Condominio Online') }}</title>
-    <script src="/js/app.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <script src="/dist/semantic.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script>
+    <script>
+        $('.ui.checkbox').checkbox();
+        $('.ui.accordion').accordion();
+        $('.ui .dropdown').dropdown();
+
+        $('.message .close').on('click', function() {
+            $(this).closest('.message').transition('fade');
+        }) ;
+
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+
+    </script>
     @yield('scripts')
 
     <link href="/dist/semantic.min.css" rel="stylesheet">
 
-    <script src="/dist/semantic.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script>
+    
 </head>
 <body>
     
@@ -44,23 +58,6 @@
                 </div>
             </div>
 
-    <!-- Scripts -->
-    
-    <script>
-        $('.ui.checkbox').checkbox();
-        $('.ui.accordion').accordion();
-
-        $('.ui .dropdown').dropdown();
-        $('.message .close').on('click', function() {
-            $(this).closest('.message').transition('fade');
-        }) ;
-
-        $('.special.cards .image').dimmer({
-            on: 'hover'
-        });
-
-    </script>
-    
-    
+ 
 </body>
 </html>

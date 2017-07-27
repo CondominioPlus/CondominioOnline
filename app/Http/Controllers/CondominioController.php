@@ -49,26 +49,30 @@ class CondominioController extends Controller
         }
         //$condominio->user_id = Auth::user()->id;
         $condominio->user()->associate(Auth::user());
+
         $condominio->save();
-        
-        for($j=0;$j<count($unidades); $j++){
-            $aux = new TipoUnidadesPrivativas;
-            $aux->nombre = $unidades[$j];
-            $aux->condominio()->associate($condominio);
-            $aux->save();
-            
-            for($i=1; $i<$numero_unidades[$j]+1;$i++ ){
-                $up = new UnidadPrivativa;
-                $up->numero = $i;
-                $up->rentado = 0;
-                $up->tipo_unidad()->associate($aux);
-                $up->condominio_id = $condominio->id;
-                $up->save();
+    
+            for($j=0;$j<count($unidades); $j++){
+                if($unidades[$j]!=null || $unidades[$j]!='' ){
+                    $aux = new TipoUnidadesPrivativas;
+                    $aux->nombre = $unidades[$j];
+                    $aux->condominio()->associate($condominio);
+                    $aux->save();
+                    
+                    for($i=1; $i<$numero_unidades[$j]+1;$i++ ){
+                        $up = new UnidadPrivativa;
+                        $up->numero = $i;
+                        $up->rentado = 0;
+                        $up->tipo_unidad()->associate($aux);
+                        $up->condominio_id = $condominio->id;
+                        $up->save();
+                        
+                    }
+                }
                 
             }
-        }
-        return redirect()->route('condominio.index')
-                        ->with('success', 'Condominio creado satisfactoriamente');
+        
+        return redirect()->route('condominio.index')->with('success', 'Condominio eliminado satisfactoriamente');
     }
 
  
@@ -113,23 +117,12 @@ class CondominioController extends Controller
 
     public function destroy($condo){
 
-        $condominio = Condominio::find($condo);
-                
-        
-        $tups=$condominio->tipo_unidades()->get();
-        $unidades = $condominio->unidades()->get();
-        foreach($unidades as $unidad){
-            $unidad->delete();
-        }
-        foreach($tups as $tup){
-            $tup->delete();
-        }
-
-        
+        $condominio = Condominio::where('id',$condo)->withCount('unidades')->withCount('tipo_unidades')->first();   
+        if($condominio->unidades_count>0) return redirect()->route('condominio.index')->with('error','Existen Unidades Privativas en este Condominio');    
+        if($condominio->tipo_unidades_count >0)   return redirect()->route('condominio.index')->with('error','Existen Tipo de Unidades Privativas en este Condominio');    
         Storage::delete($condominio->url_img);
         $condominio->delete();
         
-        return redirect()->route('condominio.index')
-                        ->with('success', 'Condominio eliminado satisfactoriamente');
+        return redirect()->route('condominio.index')->with('success', 'Condominio eliminado satisfactoriamente');
     }
 }

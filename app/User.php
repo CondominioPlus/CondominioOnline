@@ -35,9 +35,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Condominio');
     }
 
-    public function unidadaes(){
-        return $this->belongsToMany('App\UnidadPrivativa','user_unidad');
+    public function unidadesCompletas(){
+        return $this->hasManyThrough('App\UnidadPrivativa', 'App\Condominio');
     }
+
+    public function unidades(){
+        return $this->belongsToMany('App\UnidadPrivativa','user_unidad','user_id','unidades_id')->withPivot('contacto');
+    }
+
 
     public function isAdmin(){
         return $this->rol->id === 1;

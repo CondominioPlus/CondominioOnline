@@ -34,9 +34,9 @@
     <div class="row">
         <div class="column">
             <div class="ui clearing blue segment">
-                <div style="position: relative; top: 8px;" class="ui left floated header">Unidades Privativas</div>
+                <div style="position: relative; top: 8px;" class="ui left floated header">Usuarios</div>
                 <div class="ui right floated buttons">
-                    <a class="large  ui right floated green labeled icon button" href="{{ route('unidad.create') }}"><i class="add icon"></i> Agregar</a>
+                    <a class="large  ui right floated green labeled icon button" href="{{ route('usuario.create') }}"><i class="add icon"></i> Agregar</a>
                 </div>
             </div>
         </div>
@@ -55,27 +55,21 @@
                 <thead>
                     <tr>
                         <th>Condominio</th>
+                        <th>Unidad Privativa </th>
                         <th>Nombre</th>
-                        <th></th>
+                        <th>¿Contacto?</th>
+                        <th>Correo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($condominios as $condominio)
-                        @foreach($condominio->unidades as $unidad)
+                    @foreach($unidades as $unidad)
+                        @foreach($unidad->owners as $usuario)
                             <tr>
                                 <td>{{$unidad->condominio->nombre}}</td>
-                                <td>{{$unidad->tipo_unidad->nombre}} {{$unidad->numero}}</td>
-
-                                <td>
-                                    <div class="ui small buttons">        
-                                        <a class="ui blue button" href="{{ route('unidad.edit', $unidad->id) }}">Editar</a>
-                                        <form method="POST" action="{{ route('unidad.destroy', $unidad->id) }}" style="display: inline;">
-                                            {{ method_field('DELETE') }}
-                                            {{ csrf_field() }}
-                                            <button type="submit" class="ui red button">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <td>{{$unidad->tipo_unidad->nombre}} {{$unidad->numero}} </td>
+                                <td>{{$usuario->nombre}} {{$usuario->apellidos}}</td>
+                                <td>{{$usuario->pivot->contacto}}</td>
+                                <td>{{$usuario->email}}</td>
 
                             </tr>
                         @endforeach

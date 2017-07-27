@@ -36,14 +36,24 @@ Route::post('/registro', 'UserController@inicioStore')->name('userStore');
 
 
 // RESOURCES 
-
-Route::group(array('prefix' => 'admin', 'before' => 'auth'), function(){
+Route::group(array('before' => 'auth'), function(){
     Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
+});
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function(){
+    
     // place your route definitions here
     Route::resource('/condominio', 'CondominioController');
     Route::resource('/tipo_unidad', 'TUPController');
     Route::resource('/unidad', 'UnidadController');
-    Route::resource('/usuarios', 'UserController');
+    Route::resource('/usuario', 'UserController');
+
+});
+
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function(){
+    
+    // place your route definitions here
+    Route::get('/tups/condo', 'TUPController@ajaxCondo')->name('tup.ajax.condo');
+    Route::get('/unidades/condo', 'UnidadController@ajaxCondo')->name('unidad.ajax.condo');
 
 });
 

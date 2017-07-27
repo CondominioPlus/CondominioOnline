@@ -20,6 +20,9 @@ class UserController extends Controller
     public function index()
     {
         //
+        $unidades = Auth::user()->unidadesCompletas()->has('owners')->get();
+        return view('app.admin.usuarios.index')->with('unidades',$unidades);
+        //dd( $unidades );
     }
 
     /**
@@ -30,6 +33,8 @@ class UserController extends Controller
     public function create()
     {
         //
+        
+        return view('app.admin.usuarios.create');
     }
 
     /**

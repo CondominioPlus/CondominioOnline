@@ -18,6 +18,7 @@ class UnidadPrivativa extends Model
     }
 
     public function owners(){
-        return $this->belongsToMany('App\User','user_unidad')->withPivot('contacto');
+        return $this->belongsToMany('App\User','user_unidad','unidades_id','user_id')->withPivot('contacto');
     }
+
 }
