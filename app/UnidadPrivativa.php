@@ -16,4 +16,8 @@ class UnidadPrivativa extends Model
     public function tipo_unidad(){
         return $this->belongsTo('App\TipoUnidadesPrivativas','tipo_unidades_privativas_id');
     }
+
+    public function owners(){
+        return $this->belongsToMany('App\User','user_unidad')->withPivot('contacto');
+    }
 }

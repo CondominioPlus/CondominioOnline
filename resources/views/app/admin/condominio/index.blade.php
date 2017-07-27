@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <img src="{{url($condominio->url_img)}}">
+                            <img src="{{ isset($condominio->url_img) ? url($condominio->url_img) : '/imagenes/logo.png' }}">
                         </div>
                         <div class="content">
                             <a href="{{ route('condominio.show', $condominio->id) }}" class="header">{{$condominio->nombre}}</a>

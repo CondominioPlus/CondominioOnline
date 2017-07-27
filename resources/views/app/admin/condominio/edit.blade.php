@@ -22,7 +22,7 @@
             
             <div class="ui horizontal segments">
                 <div class="ui  segment">
-                    <img class="ui centered small  image" src="{{url($condominio->url_img)}}">
+                    <img class="ui centered medium image " src="{{ isset($condominio->url_img) ? url($condominio->url_img) : '/imagenes/logo.png' }}">
                 </div>
                 <div class="ui segment">
                     <h1 class="ui header">

@@ -31,10 +31,21 @@ Route::get('/registro', 'HomeController@registro')->name('registro');
 Route::post('/registro', 'UserController@inicioStore')->name('userStore');
 
 
-Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
+
 
 
 
 // RESOURCES 
-Route::resource('/condominio', 'CondominioController');
-Route::resource('/tipo_unidad', 'TUPController');
+
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function(){
+    Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
+    // place your route definitions here
+    Route::resource('/condominio', 'CondominioController');
+    Route::resource('/tipo_unidad', 'TUPController');
+    Route::resource('/unidad', 'UnidadController');
+    Route::resource('/usuarios', 'UserController');
+
+});
+
+
+

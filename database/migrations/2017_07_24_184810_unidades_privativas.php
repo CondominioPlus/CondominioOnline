@@ -13,8 +13,9 @@ class UnidadesPrivativas extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('unidades', function(Blueprint $table) {
+
+
+         Schema::create('unidades', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('numero');
             $table->boolean('rentado')->default(0);

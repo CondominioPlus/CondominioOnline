@@ -24,6 +24,7 @@
                 <table class="ui three column selectable blue table">
                     <thead>
                         <tr>
+                            <th>Condominio</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Opciones</th>
@@ -33,6 +34,7 @@
                         @foreach($condominios as $condominio)
                             @foreach($condominio->tipo_unidades as $tipo_unidad)   
                             <tr>
+                                <td>{{ $condominio->nombre }}</td>
                                 <td>{{ $tipo_unidad->nombre }}</td>
                                 <td>{{ $tipo_unidad->descripcion }}</td>
                                 <td>
@@ -41,7 +43,7 @@
                                         <form method="POST" action="{{ route('tipo_unidad.destroy', $tipo_unidad->id) }}" style="display: inline;">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
-                                            <button type="submit" class="ui red button">Borrar</button>
+                                            <button type="submit" class="ui red button">Eliminar</button>
                                         </form>
                                     </div>
                                 </td>

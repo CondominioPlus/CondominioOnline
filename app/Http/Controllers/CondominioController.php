@@ -18,8 +18,7 @@ Use App\UnidadPrivativa;
 class CondominioController extends Controller
 {
     //
-    public function __construct() 
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
     
@@ -44,11 +43,13 @@ class CondominioController extends Controller
         $condominio = new Condominio;
         $condominio->nombre = $request->nombre;
         $condominio->direccion = $request->direccion;
-        $imgpath=Storage::putFile('public/logos',$request->file('logo'));
-        $condominio->url_img = Storage::url($imgpath);
-        $condominio->user_id = Auth::user()->id;
+        if($request->file('logo')!= null){
+            $imgpath=Storage::putFile('public/logos',$request->file('logo'));
+            $condominio->url_img = Storage::url($imgpath);
+        }
+        //$condominio->user_id = Auth::user()->id;
+        $condominio->user()->associate(Auth::user());
         $condominio->save();
-        //Auth::user()->condominios()->associate($condominio);
         
         for($j=0;$j<count($unidades); $j++){
             $aux = new TipoUnidadesPrivativas;

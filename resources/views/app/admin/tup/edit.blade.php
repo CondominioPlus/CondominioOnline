@@ -23,7 +23,21 @@
 
     <div class="row">
         <div class="column">
-            {{$tup}}
+            <form class="ui form" method="POST" action="{{route('tipo_unidad.update',$tup->id)}}">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+                <div class="two fields">
+                    <div class="field">
+                        <label>Nombre</label>
+                        <input type="text" value="{{$tup->nombre}}" placeholder="{{$tup->nombre}}" name="nombre">
+                    </div>
+                    <div class="field">
+                        <label>Descripción</label>
+                        <textarea value="{{$tup->descripcion}}" placeholder="{{$tup->descripcion}}" rows="2" name="descripcion"></textarea>
+                    </div>
+                </div>
+                <button class="ui button green right floated"> Guardar </button>
+            </form>
         </div>
     </div>
 </div>
