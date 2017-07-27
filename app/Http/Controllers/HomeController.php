@@ -18,14 +18,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        if(Auth::user()) return redirect()->route('dashboard');
+    public function index(){
         return view('home.inicio');
     }
 
     public function registro(){
-        if(Auth::user()) return redirect()->route('dashboard');
+        if(Auth::user() ) return redirect()->route('dashboard');
         return view('home.registro');
     }
 
